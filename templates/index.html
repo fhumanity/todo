@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div style="margin-top: 100px;" class="container">
+    <h3>Yapılacaklar Listesi</h3>
+    <hr>
+
+    <form action="add" method = "post">
+    <div class="form-group">
+    <label for="formGroupexampleInput">Yapılacak İş</label>
+    <input type="text" class="form-control" name="title" id="formGroupexampleInput"  placeholder="İşi yazınız...">
+    <small  class="form-text text-muted">Unutmayın, yapacağınız iş kısa vadede olsun...</small><br>
+    <button  type = "submit" class="btn btn-danger">Ekle</button>
+    </form>
+
+    <hr>
+    </div>
+    {% if todos == [] %}
+    <div class="alert alert-warning" role="alert">
+  Yapılacak bir işiniz yok gibi görünüyor...
+</div>
+    
+    {% else %}
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">İş </th>
+      <th scope="col">Durum</th>
+      <th scope="col">Durum güncelle</th>
+      <th scope="col">Durum sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in todos %}
+        <tr>
+      <th scope="row">{{todo.id}}</th>
+      <td>{{todo.title}}</td>
+      {% if todo.complete==False %}
+      <td>Tamamlanmadı</td>
+      
+      {% else %}
+      <td>Tamamlandı</td>
+      {% endif %}
+     
+      <td><a href="/complete/{{todo.id}}" class="btn btn-danger">Tamamla</a></td>
+      <td><a href="/delete/{{todo.id}}" class="btn btn-danger">Sil</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    {% endif %}
+    
+
+{% endblock body %}
+
+
